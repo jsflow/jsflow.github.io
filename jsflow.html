@@ -79,16 +79,16 @@ print("- Example 1");
 var x = lbl(2); // A confidential integer 2
 print("x: "+x);
 var y = 3;      // A public integer 3
-jsflog("y: "+y);
+print("y: "+y);
 
 print("- Example 2");
 var z = 5 + x;  // Explicit flow
-jsflog("z: "+z);
+print("z: "+z);
 
 print("- Example 3"); // Implicit flow, allowed since z is confidential
 if (x == 2) { z = 2 }
 else {z = 0}
-jsflog("z: "+z);
+print("z: "+z);
             </textarea> </p>
                 </textarea>
                 </p>

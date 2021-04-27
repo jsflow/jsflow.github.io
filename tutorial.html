@@ -142,10 +142,10 @@ if(tm === true) {
 
         <br /><br /> If not provided by the programmer of an application, JSFlow employs a two-level lattice: public and secret, where public values are allowed to flow to secret. In principle, the lattice in JSFlow is a subset lattice, meaning that the
         label(s) of a sink must be a subset of the label(s) of the source. In order to label values, one must call the built-in function <code>lbl</code> which, given a value, will label the value. As an example, <code>var x = lbl(42);</code> will give
-        the variable <code>x</code> the value <code>42</code>, and the label <code>T</code> for Top, i.e. the top value of the lattice, which is secret. We can verify this by executing <code>lprint(x);</code>, which gives the output <code>(&lt;&gt;)42_&lt;T&gt;</code>,
+        the variable <code>x</code> the value <code>42</code>, and the label <code>T</code> for Top, i.e. the top value of the lattice, which is secret. We can verify this by executing <code>print(x);</code>, which gives the output <code>(&lt;&gt;)42_&lt;T&gt;</code>,
         indicating the pc is public (<code>(&lt;&gt;)</code>), the value is <code>42</code>, and its label is Top (
         <code>&lt;T&gt;</code>).
-        <br /> We can see the execution context change by having <code>if(x) lprint(x);</code>. Since <code>x</code> is defined, the body of the if-statement will be executed. When <code>lprint(x)</code> is executed, it will print <code>(&lt;T&gt;)42_&lt;T&gt;</code>.
+        <br /> We can see the execution context change by having <code>if(x) print(x);</code>. Since <code>x</code> is defined, the body of the if-statement will be executed. When <code>print(x)</code> is executed, it will print <code>(&lt;T&gt;)42_&lt;T&gt;</code>.
         This is due to branching on the secret variable <code>x</code> will upgrade the pc to sensitive.
 
         <br /><br /> In JSFlow, a pure explicit flow is allowed. As an example, imagine the secret variable <code>h</code> and the public variable <code>l</code>. If we execute the program <code>l = h</code> in JSFlow, the label of <code>l</code> would
