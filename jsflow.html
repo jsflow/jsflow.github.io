@@ -1,17 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-36803261-4"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9D9J8LEV53"></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+        window.dataLayer = window.dataLayer || [];
 
-      gtag('config', 'UA-36803261-4');
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'G-9D9J8LEV53');
     </script>
 
     <title>jsflow</title>
@@ -22,48 +26,55 @@
     <!-- Le styles -->
     <link href="css/bootstrap.css" rel="stylesheet">
     <style>
-      body {
-        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
-      }
+        body {
+            padding-top: 60px;
+            /* 60px to make the container go all the way to the bottom of the topbar */
+        }
     </style>
     <link href="css/bootstrap-responsive.css" rel="stylesheet">
     <script src="js/codemirror.js"></script>
     <link href="css/codemirror.css" rel="stylesheet">
     <script src="js/mode/javascript/javascript.js"></script>
-    <style type="text/css">.CodeMirror {border-top: 1px solid black; border-bottom: 1px solid black;}</style>
+    <style type="text/css">
+        .CodeMirror {
+            border-top: 1px solid black;
+            border-bottom: 1px solid black;
+        }
+    </style>
 
-                                 
-  </head>
 
-  <body>
+</head>
+
+<body>
 
     <div class="navbar navbar-inverse navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container">
-          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
+        <div class="navbar-inner">
+            <div class="container">
+                <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
 
-          <a class="brand" href="http://jsflow.net">jsflow</a>
-          <div class="nav-collapse collapse">
-            <ul class="nav">
-              <li><a href="index.html">main</a></li>
-              <li><a href="tutorial.html">tutorial</a></li>
-              <li class="active"><a href="jsflow.html">console</a></li>
-              <li><a href="jsflow-challenge.html">challenge</a></li>
-            </ul>
-          </div><!--/.nav-collapse -->
+                <a class="brand" href="http://jsflow.net">jsflow</a>
+                <div class="nav-collapse collapse">
+                    <ul class="nav">
+                        <li><a href="index.html">main</a></li>
+                        <li><a href="tutorial.html">tutorial</a></li>
+                        <li class="active"><a href="jsflow.html">console</a></li>
+                        <li><a href="jsflow-challenge.html">challenge</a></li>
+                    </ul>
+                </div>
+                <!--/.nav-collapse -->
+            </div>
         </div>
-      </div>
     </div>
 
     <div class="container">
-      <div class="row">
-      <div class="span12">
-        <p> Enter JavaScript code and press 'Execute' to execute the code with JSFlow. </p>
-        <p> <textarea id="code" name="code">
+        <div class="row">
+            <div class="span12">
+                <p> Enter JavaScript code and press 'Execute' to execute the code with JSFlow. </p>
+                <p> <textarea id="code" name="code">
 print("- Example 1");
 var x = lbl(2); // A confidential integer 2
 print("x: "+x);
@@ -80,50 +91,53 @@ if (x == 2) { z = 2 }
 else {z = 0}
 lprint("z: "+z);
             </textarea> </p>
-            </textarea> </p>
-      </div>
-      </div>
-      <div class="row">
-      <div class="span12">
-        <button type="button" class="btn btn-primary" onclick="execute()">Execute</button> 
-      </div>
-      </div>
+                </textarea>
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="span12">
+                <button type="button" class="btn btn-primary" onclick="execute()">Execute</button>
+            </div>
+        </div>
 
-      <div class="row">
-      <div class="span12">
-        <p> <pre id="console" class="pre-scrollable prettyprint linenums" style="height:350px"></pre> </p>
-      </div>
-      </div>
+        <div class="row">
+            <div class="span12">
+                <p>
+                    <pre id="console" class="pre-scrollable prettyprint linenums" style="height:350px"></pre>
+                </p>
+            </div>
+        </div>
     </div>
 
 
 
     <script>
-      var codeTextArea = document.getElementById("code");
-      var editor       = CodeMirror.fromTextArea(codeTextArea, 
-        { lineNumbers : true,
-          matchBrackets : true,
+        var codeTextArea = document.getElementById("code");
+        var editor = CodeMirror.fromTextArea(codeTextArea, {
+            lineNumbers: true,
+            matchBrackets: true,
+        });
+
+        var c = document.getElementById("console");
+
+        jsflow = {
+            console: {}
+        };
+
+        jsflow.console.log = function log() {
+            var str = '';
+            for (var i = 0, len = arguments.length; i < len; i++) {
+                str = str + String(arguments[i]);
+
+            }
+            c.innerHTML = c.innerHTML + str + "\n";
+            c.scrollTop = c.scrollHeight;
         }
-        );
 
-      var c = document.getElementById("console");
-
-      jsflow = { console : {} };
-      
-      jsflow.console.log = function log() {
-        var str = '';
-        for (var i = 0, len = arguments.length; i < len; i++) {
-          str = str + String(arguments[i]);
-
+        function execute() {
+            jsflow.monitor.Execute(editor.getDoc().getValue());
         }
-        c.innerHTML = c.innerHTML + str + "\n";
-        c.scrollTop = c.scrollHeight;
-      }
-
-      function execute() {
-        jsflow.monitor.Execute(editor.getDoc().getValue());
-      }
-
     </script>
 
     <script src="js/jquery.js"></script>
@@ -131,11 +145,11 @@ lprint("z: "+z);
     <script src="js/jsflow-bundle.js"></script>
 
     <script>
-      jsflow.monitor.log   = jsflow.console.log;
-      jsflow.monitor.print = jsflow.console.log;
-      jsflow.monitor.error = jsflow.console.log;
-      jsflow.monitor.warn  = jsflow.console.log;
-      jsflow.console.log(`JSFlow v${jsflow.version} console.`);
+        jsflow.monitor.log = jsflow.console.log;
+        jsflow.monitor.print = jsflow.console.log;
+        jsflow.monitor.error = jsflow.console.log;
+        jsflow.monitor.warn = jsflow.console.log;
+        jsflow.console.log(`JSFlow v${jsflow.version} console.`);
     </script>
 </body>
 

@@ -1,17 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-36803261-4"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9D9J8LEV53"></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+        window.dataLayer = window.dataLayer || [];
 
-      gtag('config', 'UA-36803261-4');
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'G-9D9J8LEV53');
     </script>
 
     <title>jsflow</title>
@@ -22,88 +26,75 @@
     <!-- Le styles -->
     <link href="css/bootstrap.css" rel="stylesheet">
     <style>
-      body {
-        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
-      }
+        body {
+            padding-top: 60px;
+            /* 60px to make the container go all the way to the bottom of the topbar */
+        }
     </style>
     <link href="css/bootstrap-responsive.css" rel="stylesheet">
 
     <link href="css/prism.css" rel="stylesheet">
     <script src="js/prism.js"></script>
-  </head>
+</head>
 
-  <body>
+<body>
 
     <div class="navbar navbar-inverse navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container">
-          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="brand" href="http://jsflow.net">jsflow</a>
-          <div class="nav-collapse collapse">
-            <ul class="nav">
-              <li class="active"><a href="index.html">main</a></li>
-              <li><a href="tutorial.html">tutorial</a></li>
-              <li><a href="jsflow.html">console</a></li>
-              <li><a href="jsflow-challenge.html">challenge</a></li>
-            </ul>
-          </div><!--/.nav-collapse -->
+        <div class="navbar-inner">
+            <div class="container">
+                <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+                <a class="brand" href="http://jsflow.net">jsflow</a>
+                <div class="nav-collapse collapse">
+                    <ul class="nav">
+                        <li class="active"><a href="index.html">main</a></li>
+                        <li><a href="tutorial.html">tutorial</a></li>
+                        <li><a href="jsflow.html">console</a></li>
+                        <li><a href="jsflow-challenge.html">challenge</a></li>
+                    </ul>
+                </div>
+                <!--/.nav-collapse -->
+            </div>
         </div>
-      </div>
     </div>
 
 
     <div class="container">
-      
-      <h2>Tutorial</h2>
-      This tutorial will give a brief introduction to <i>information flow control</i>, and how it is implemented in JSFlow.
+
+        <h2>Tutorial</h2>
+        This tutorial will give a brief introduction to <i>information flow control</i>, and how it is implemented in JSFlow.
 
 
-      <h3>Usage</h3>
-      To start using JSFlow, download the <a href="jsflow-1.1.0.tgz">JSFlow package</a> and unpack it.
-      Ensure <a href="#">NodeJS</a> and <a href="#">npm</a> are installed.
-      Once unpacked, enter the directory and execute <code>npm install</code>. This should install all the necessary libraries.
-      If that fail, manually install <a href="#">esprima</a>, <a href="#">escodegen</a>, <a href="#">estraverse</a>, <a href="#">source-map</a> and <a href="#">underscore</a>.
-      It is recommended to use npm to do this.
+        <h3>Usage</h3>
+        To start using JSFlow, download the <a href="jsflow-1.1.0.tgz">JSFlow package</a> and unpack it. Ensure <a href="#">NodeJS</a> and <a href="#">npm</a> are installed. Once unpacked, enter the directory and execute <code>npm install</code>. This
+        should install all the necessary libraries. If that fail, manually install <a href="#">esprima</a>, <a href="#">escodegen</a>, <a href="#">estraverse</a>, <a href="#">source-map</a> and <a href="#">underscore</a>. It is recommended to use npm
+        to do this.
 
-      <br /><br />
+        <br /><br /> Programming towards JSFlow is similar to programming towards standard JavaScript, with the main difference being labeling primitives. In the unpacked directory, execute <code>./jsflow</code> to run an interactive shell, or execute
+        <code>./jsflow <i>filepath</i></code>, which will execute the JavaScript file pointed to by
+        <code><i>filepath</i></code>.
 
-      Programming towards JSFlow is similar to programming towards standard JavaScript, with the main difference being labeling primitives.
-      In the unpacked directory, execute <code>./jsflow</code> to run an interactive shell, or execute <code>./jsflow <i>filepath</i></code>, which will execute the JavaScript file pointed to by <code><i>filepath</i></code>.
+        <hr>
 
-      <hr>
+        <h3>Dynamic Information Flow Control</h3>
 
-      <h3>Dynamic Information Flow Control</h3>
+        In our work, we work with dynamic information flow control (IFC). In dynamic IFC, all runtime values are augmented with a security label, which are copied and joined to reflect the computations of a program. The labels are drawn from a lattice, in litterature
+        usually denoted as <i>L</i> and <i>H</i> for <i>low</i> (public) and <i>high</i> (private) data.
 
-      In our work, we work with dynamic information flow control (IFC).
-      In dynamic IFC, all runtime values are augmented with a security label, which are copied and joined to reflect the computations of a program.
-      The labels are drawn from a lattice, in litterature usually denoted as <i>L</i> and <i>H</i> for <i>low</i> (public) and <i>high</i> (private) data.
+        <br /><br /> When tracking the information flow during execution, a <i>program counter (pc)</i> is used. As an example, the pc is upgraded when the program branches on a secret variable, and hence reflects the current
+        <i>security context</i>, i.e. the security level of the current computation.
 
-      <br /><br />
+        <br /><br /> For a program to be of any use, it must take inputs and produce outputs. We call inputs to a program <i>sources</i>, and outputs from the program <i>sinks</i>. With this, there are two types of flows to look for in IFC: <i>explicit</i>        and <i>implicit</i> flows. In explicit flows, the data flow is used to leak information by writing from a private source to a public sink. As an example, <code>l := h</code> has an explicit flow from the private source <code>h</code> to the public
+        sink
+        <code>l</code>. On the other hand, implicit flows use the control flow of a program to leak the secret to a public sink, without explicitly writing from the private source. To illustrate this, if we assume <code>h</code> is of boolean type, <code>l := false; if(h) l := true;</code>        would leak the secret source <code>h</code> to the public sink <code>l</code>, without an explicit assignment between the source and the sink. With this, we can define a common security property for IFC, namely <i>noninterference</i> Noninterference
+        states public output must not depend on private input. More intuitively, a program satisfies noninterference if, for all runs of a program, if the only difference between the runs are the private input, then the public output should remain the
+        same. One of the security models of noninterference is <i>termination insensitive noninterference(TINI)</i>, which guarantees noninterference for terminating executions of an application. In practice, this means applications that leak through
+        the termination behaviour of a program are allowed, given it is the termination behaviour only that produces the leak. As an example, have a look at the following example.
 
-      When tracking the information flow during execution, a <i>program counter (pc)</i> is used.
-      As an example, the pc is upgraded when the program branches on a secret variable, and hence reflects the current <i>security context</i>, i.e. the security level of the current computation.
-
-      <br /><br />
-
-      For a program to be of any use, it must take inputs and produce outputs.
-      We call inputs to a program <i>sources</i>, and outputs from the program <i>sinks</i>.
-      With this, there are two types of flows to look for in IFC: <i>explicit</i> and <i>implicit</i> flows.
-      In explicit flows, the data flow is used to leak information by writing from a private source to a public sink.
-      As an example, <code>l := h</code> has an explicit flow from the private source <code>h</code> to the public sink <code>l</code>.
-      On the other hand, implicit flows use the control flow of a program to leak the secret to a public sink, without explicitly writing from the private source.
-      To illustrate this, if we assume <code>h</code> is of boolean type, <code>l := false; if(h) l := true;</code> would leak the secret source <code>h</code> to the public sink <code>l</code>, without an explicit assignment between the source and the sink.
-      With this, we can define a common security property for IFC, namely <i>noninterference</i>
-      Noninterference states public output must not depend on private input.
-      More intuitively, a program satisfies noninterference if, for all runs of a program, if the only difference between the runs are the private input, then the public output should remain the same.
-      One of the security models of noninterference is <i>termination insensitive noninterference(TINI)</i>, which guarantees noninterference for terminating executions of an application.
-      In practice, this means applications that leak through the termination behaviour of a program are allowed, given it is the termination behaviour only that produces the leak.
-      As an example, have a look at the following example.
-
-      <pre>
+        <pre>
         <code class="language-javascript">
 /* Assuming h is a secret variable of type Number defined elsewhere.
  * Also assume the attacker can observe the output done by print. */
@@ -114,24 +105,14 @@ for(var i = Number.MIN_VALUE; i &lt;= Number.MAX_VALUE; i++) {
     }
 }
         </code>
-      </pre>
+      </pre> Assuming <code>print</code> prints to a public sink which the attacker can observe, the secret value <code>h</code> is leaked. For each iteration, the variable <code>i</code> is public: it never depends on a secret. This means printing
+        <code>i</code> to a public sink is always allowed. The only time the application will branch on a secret is in the if-statement <code>if(i == h)</code>. But branching there will make the application run an infinite loop, and never terminate, indicating
+        the last written output to the public sink will be the secret value. Since the leak only depends on the non-termination in the branch, this would be allowed for systems which employ TINI.
 
-      Assuming <code>print</code> prints to a public sink which the attacker can observe, the secret value <code>h</code> is leaked.
-      For each iteration, the variable <code>i</code> is public: it never depends on a secret.
-      This means printing <code>i</code> to a public sink is always allowed.
-      The only time the application will branch on a secret is in the if-statement <code>if(i == h)</code>.
-      But branching there will make the application run an infinite loop, and never terminate, indicating the last written output to the public sink will be the secret value.
-      Since the leak only depends on the non-termination in the branch, this would be allowed for systems which employ TINI.
-      
-      <br /><br />
-
-      To help achieve noninterference, one must handle side-effects under secret control carefully.
-      If security labels are allowed to change under secret control, there can be implicit flows into the labels.
-      To help prevent this, there is the concept of <i>no sensitive upgrade (NSU)</i>.
-      NSU states that security labels are not allowed to change under secret control.
-      What would be the effect if labels are allowed to change under secret control?
-      The following example illustrate this well.
-      <pre>
+        <br /><br /> To help achieve noninterference, one must handle side-effects under secret control carefully. If security labels are allowed to change under secret control, there can be implicit flows into the labels. To help prevent this, there
+        is the concept of <i>no sensitive upgrade (NSU)</i>. NSU states that security labels are not allowed to change under secret control. What would be the effect if labels are allowed to change under secret control? The following example illustrate
+        this well.
+        <pre>
         <code class="language-javascript">
 /* For this example, we assume lo and tm to be public values.
  * hi is a secret boolean value, defined elsewhere. */
@@ -144,72 +125,53 @@ if(tm === true) {
     lo = false;
 }
         </code>
-      </pre>
+      </pre> Lets follow the execution, and assume that there is no NSU, i.e. labels are allowed to change freely under secret control. If <code>hi</code> is <code>true</code>, then the body of the if-statement <code>if(hi === true)</code> will
+        execute under secret control. When this happens, <code>tm</code> will be given the value <code>false</code>, and its label will be upgraded to the label of <code>hi</code>. Since <code>tm</code> now is <code>false</code>, the body of the if-statement
+        <code>if(tm === true)</code> will not execute, leaving <code>lo</code> with the value <code>true</code>, and a public label.
+        <br /> On the other hand, if <code>hi</code> is <code>false</code>, the body of the if-statement
+        <code>if(hi === true)</code> will never execute, leaving <code>tm</code> with the value <code>true</code> and a public label. This means the guard in the if-statement <code>if(tm === true)</code> is <code>true</code>, and the body will be executed.
+        However, since <code>tm</code> was public, the body is executed under public control, giving <code>lo</code> the value <code>false</code> with a public label.
+        <br /> In both instances, the value of <code>hi</code> is leaked to <code>lo</code>, with <code>lo</code> keeping a public label. But with NSU, the assignment <code>tm = false</code> is not allowed, as it would change the label of <code>tm</code>        under secret control. If <code>hi</code> is false, <code>lo</code> would be <code>false</code> and public. This is a one-bit leak that cannot be prevented with NSU.
 
-      Lets follow the execution, and assume that there is no NSU, i.e. labels are allowed to change freely under secret control.
-      If <code>hi</code> is <code>true</code>, then the body of the if-statement <code>if(hi === true)</code> will execute under secret control.
-      When this happens, <code>tm</code> will be given the value <code>false</code>, and its label will be upgraded to the label of <code>hi</code>.
-      Since <code>tm</code> now is <code>false</code>, the body of the if-statement <code>if(tm === true)</code> will not execute, leaving <code>lo</code> with the value <code>true</code>, and a public label.
-      <br />
-      On the other hand, if <code>hi</code> is <code>false</code>, the body of the if-statement <code>if(hi === true)</code> will never execute, leaving <code>tm</code> with the value <code>true</code> and a public label.
-      This means the guard in the if-statement <code>if(tm === true)</code> is <code>true</code>, and the body will be executed.
-      However, since <code>tm</code> was public, the body is executed under public control, giving <code>lo</code> the value <code>false</code> with a public label.
-      <br />
-      In both instances, the value of <code>hi</code> is leaked to <code>lo</code>, with <code>lo</code> keeping a public label.
-      But with NSU, the assignment <code>tm = false</code> is not allowed, as it would change the label of <code>tm</code> under secret control.
-      If <code>hi</code> is false, <code>lo</code> would be <code>false</code> and public. This is a one-bit leak that cannot be prevented with NSU.
+        <hr>
 
-      <hr>
+        <h3>JSFlow</h3>
 
-      <h3>JSFlow</h3>
+        JSFlow is a JavaScript interpreter which is extended with security labels on the values. It supports all the standard libraries defined in the <a href="https://www.ecma-international.org/ecma-262/5.1/">Ecma v5 standard</a>, but it does not support
+        strict mode. JSFlow has the security property of TINI, and uses NSU.
 
-      JSFlow is a JavaScript interpreter which is extended with security labels on the values.
-      It supports all the standard libraries defined in the <a href="https://www.ecma-international.org/ecma-262/5.1/">Ecma v5 standard</a>, but it does not support strict mode.
-      JSFlow has the security property of TINI, and uses NSU.
+        <br /><br /> If not provided by the programmer of an application, JSFlow employs a two-level lattice: public and secret, where public values are allowed to flow to secret. In principle, the lattice in JSFlow is a subset lattice, meaning that the
+        label(s) of a sink must be a subset of the label(s) of the source. In order to label values, one must call the built-in function <code>lbl</code> which, given a value, will label the value. As an example, <code>var x = lbl(42);</code> will give
+        the variable <code>x</code> the value <code>42</code>, and the label <code>T</code> for Top, i.e. the top value of the lattice, which is secret. We can verify this by executing <code>lprint(x);</code>, which gives the output <code>(&lt;&gt;)42_&lt;T&gt;</code>,
+        indicating the pc is public (<code>(&lt;&gt;)</code>), the value is <code>42</code>, and its label is Top (
+        <code>&lt;T&gt;</code>).
+        <br /> We can see the execution context change by having <code>if(x) lprint(x);</code>. Since <code>x</code> is defined, the body of the if-statement will be executed. When <code>lprint(x)</code> is executed, it will print <code>(&lt;T&gt;)42_&lt;T&gt;</code>.
+        This is due to branching on the secret variable <code>x</code> will upgrade the pc to sensitive.
 
-      <br /><br />
-
-      If not provided by the programmer of an application, JSFlow employs a two-level lattice: public and secret, where public values are allowed to flow to secret.
-      In principle, the lattice in JSFlow is a subset lattice, meaning that the label(s) of a sink must be a subset of the label(s) of the source.
-      In order to label values, one must call the built-in function <code>lbl</code> which, given a value, will label the value.
-      As an example, <code>var x = lbl(42);</code> will give the variable <code>x</code> the value <code>42</code>, and the label <code>T</code> for Top, i.e. the top value of the lattice, which is secret.
-      We can verify this by executing <code>lprint(x);</code>, which gives the output <code>(&lt;&gt;)42_&lt;T&gt;</code>, indicating the pc is public (<code>(&lt;&gt;)</code>), the value is <code>42</code>, and its label is Top (<code>&lt;T&gt;</code>).
-      <br />
-      We can see the execution context change by having <code>if(x) lprint(x);</code>.
-      Since <code>x</code> is defined, the body of the if-statement will be executed.
-      When <code>lprint(x)</code> is executed, it will print <code>(&lt;T&gt;)42_&lt;T&gt;</code>.
-      This is due to branching on the secret variable <code>x</code> will upgrade the pc to sensitive.
-
-      <br /><br />
-
-      In JSFlow, a pure explicit flow is allowed.
-      As an example, imagine the secret variable <code>h</code> and the public variable <code>l</code>.
-      If we execute the program <code>l = h</code> in JSFlow, the label of <code>l</code> would simply be upgraded, as the execution context is public.
-      Without any branching, this is always allowed.
-      <br />
-      If, however, we add an if-statement: <code>l = false; if(h) l = true;</code>, given <code>h</code> is defined to a value which can be interpreted as <code>true</code>, JSFlow would detect the implicit flow and prevent it.
-      <br />
-      On the other and, a combination of these can be allowed.
-      <pre>
+        <br /><br /> In JSFlow, a pure explicit flow is allowed. As an example, imagine the secret variable <code>h</code> and the public variable <code>l</code>. If we execute the program <code>l = h</code> in JSFlow, the label of <code>l</code> would
+        simply be upgraded, as the execution context is public. Without any branching, this is always allowed.
+        <br /> If, however, we add an if-statement: <code>l = false; if(h) l = true;</code>, given <code>h</code> is defined to a value which can be interpreted as <code>true</code>, JSFlow would detect the implicit flow and prevent it.
+        <br /> On the other and, a combination of these can be allowed.
+        <pre>
         <code class="language-javascript">
 l = h; // This is allowed, and l will become secret.
 if(h) {
     l = 42; // This is allowed, since l is now secret, i.e. NSU will not trigger.
 }
         </code>
-      </pre>
-      Although there is an implicit flow to <code>l</code> depending on the secret value <code>h</code>, since <code>l</code> has been upgraded on the first line, it is a safe implicit flow.
-      Similarly, JSFlow would prevent the NSU example from before as well.
+      </pre> Although there is an implicit flow to <code>l</code> depending on the secret value <code>h</code>, since
+        <code>l</code> has been upgraded on the first line, it is a safe implicit flow. Similarly, JSFlow would prevent the NSU example from before as well.
 
-      <hr>
+        <hr>
 
-      <h3>More advanced labeling in JSFlow</h3>
+        <h3>More advanced labeling in JSFlow</h3>
 
-      If the standard two-level lattice is not enough, one can use <code>lbl</code> to create their own labels for the values.
-      As an example, <code>var x = lbl(42, "my-extremely-secret-value");</code> will label the variable <code>x</code> with the label <code>my-extremely-secret-value</code>, and <code>var y = lbl(42, "secret-value", "extremely-secret-value");</code> will label <code>y</code> with both <code>secret-value</code> and <code>extremely-secret-value</code>.
-      Since JSFlow employs a subset lattice, in order for <code>x</code> to be allowed to flow to <code>y</code>, the labels of <code>x</code> must be a subset of the labels of <code>y</code>.
-      This means the following is not allowed in JSFlow, due to the labels of <code>m</code> not being a subset of the labels of <code>h</code>.
-      <pre>
+        If the standard two-level lattice is not enough, one can use <code>lbl</code> to create their own labels for the values. As an example, <code>var x = lbl(42, "my-extremely-secret-value");</code> will label the variable <code>x</code> with the
+        label <code>my-extremely-secret-value</code>, and
+        <code>var y = lbl(42, "secret-value", "extremely-secret-value");</code> will label <code>y</code> with both
+        <code>secret-value</code> and <code>extremely-secret-value</code>. Since JSFlow employs a subset lattice, in order for <code>x</code> to be allowed to flow to <code>y</code>, the labels of <code>x</code> must be a subset of the labels of <code>y</code>.
+        This means the following is not allowed in JSFlow, due to the labels of <code>m</code> not being a subset of the labels of <code>h</code>.
+        <pre>
         <code class="language-javascript">
 var l = lbl(10, 'low');
 var m = lbl(15, 'mid');
@@ -221,12 +183,11 @@ if(m === 15) {
     h = 25;
 }
         </code>
-      </pre>
+      </pre> Instead, we must label the variable <code>h</code> to both <code>mid</code> and <code>high</code> in order for the assignment to be allowed. If <code>h</code> is labeled in this manner, the labels of <code>m</code> becomes a subset
+        of the labels of
+        <code>h</code>.
 
-      Instead, we must label the variable <code>h</code> to both <code>mid</code> and <code>high</code> in order for the assignment to be allowed.
-      If <code>h</code> is labeled in this manner, the labels of <code>m</code> becomes a subset of the labels of <code>h</code>.
-
-      <pre>
+        <pre>
         <code class="language-javascript">
 var l = lbl(10, 'low');
 var m = lbl(15, 'mid');
@@ -246,5 +207,6 @@ if(m === 15) {
     <script src="js/jquery.js"></script>
     <script src="js/bootstrap.js"></script>
 
-  </body>
+</body>
+
 </html>
