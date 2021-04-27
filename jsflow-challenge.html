@@ -129,6 +129,8 @@ function f(h) {
             for (var i = 0, len = arguments.length; i < len; i++) {
                 str = str + String(arguments[i]);
             }
+            str = str.replaceAll("<", "&lt;");
+            str = str.replaceAll(">", "&gt;");
             c.innerHTML = c.innerHTML + str + "\n";
             c.scrollTop = c.scrollHeight;
         }

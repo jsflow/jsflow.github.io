@@ -79,17 +79,16 @@ print("- Example 1");
 var x = lbl(2); // A confidential integer 2
 print("x: "+x);
 var y = 3;      // A public integer 3
-lprint("x: "+x);
-lprint("y: "+y);
+jsflog("y: "+y);
 
 print("- Example 2");
 var z = 5 + x;  // Explicit flow
-lprint("z: "+z);
+jsflog("z: "+z);
 
-print("- Example 3"); // Implicit flow
+print("- Example 3"); // Implicit flow, allowed since z is confidential
 if (x == 2) { z = 2 }
 else {z = 0}
-lprint("z: "+z);
+jsflog("z: "+z);
             </textarea> </p>
                 </textarea>
                 </p>
@@ -129,14 +128,69 @@ lprint("z: "+z);
             var str = '';
             for (var i = 0, len = arguments.length; i < len; i++) {
                 str = str + String(arguments[i]);
-
             }
+            str = str.replaceAll("<", "&lt;");
+            str = str.replaceAll(">", "&gt;");
             c.innerHTML = c.innerHTML + str + "\n";
             c.scrollTop = c.scrollHeight;
         }
 
         function execute() {
-            jsflow.monitor.Execute(editor.getDoc().getValue());
+            try {
+                jsflow.monitor.Execute(editor.getDoc().getValue());
+            } catch (err) {
+
+                if (err && err.type) {
+                    // jsflow errors extend Error, hence we must break out their handling
+                    if (err.type === "FatalError") {
+                        report("error", editor.getDoc().getValue() + "\n" + err.stack);
+                        jsflow.console.log(err.message);
+                        exception = true;
+                        return;
+                    }
+
+                    if (err.type == "SecurityError") {
+                        jsflow.console.log(err.message);
+                        exception = true;
+                        return;
+                    }
+                }
+
+                // report Errors, i.e., exceptions caused by jsflow
+                if (err instanceof Error) {
+                    report("error", editor.getDoc().getValue() + "\n" + err.stack);
+                    jsflow.console.log(err.message);
+                    exception = true;
+                    return;
+                }
+
+                // remaining exceptions are from the code
+                jsflow.console.log(`Uncaught ${err}`);
+            }
+        }
+
+
+        function report(status, code) {
+            const headers = new Headers()
+            headers.append("Content-Type", "application/json")
+            console.log(document.URL);
+
+            const body = {
+                "user_agent": navigator.userAgent,
+                "url": document.URL,
+                "code": code,
+                "status": status
+            }
+
+            const options = {
+                method: "POST",
+                headers,
+                mode: "cors",
+                body: JSON.stringify(body),
+            }
+
+            // fetch("https://enm08sczo8nqzdo.m.pipedream.net", options)
+            console.log("FISK", options);
         }
     </script>
 
