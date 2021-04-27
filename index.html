@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-36803261-4"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'UA-36803261-4');
+  </script>
+
+  <title>jsflow</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!-- Le styles -->
+  <link href="css/bootstrap.css" rel="stylesheet">
+  <style>
+    body {
+      padding-top: 60px;
+      /* 60px to make the container go all the way to the bottom of the topbar */
+    }
+  </style>
+  <link href="css/bootstrap-responsive.css" rel="stylesheet">
+
+
+</head>
+
+<body>
+
+  <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+      <div class="container">
+        <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="brand" href="http://jsflow.net">jsflow</a>
+        <div class="nav-collapse collapse">
+          <ul class="nav">
+            <li class="active"><a href="index.html">main</a></li>
+            <li><a href="tutorial.html">tutorial</a></li>
+            <li><a href="jsflow.html">console</a></li>
+            <li><a href="jsflow-challenge.html">challenge</a></li>
+          </ul>
+        </div>
+        <!--/.nav-collapse -->
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-unit">
+    <h2>JSFlow</h2>
+
+    <p>
+      JSFlow is a security-enhanced JavaScript interpreter for fine-grained tracking of information flow. JSFLow
+
+    <ul>
+      <li> supports full non-strict ECMA-262 v.5 <a
+          href="http://www.ecma-international.org/publications/files/ECMA-ST/Ecma-262.pdf">(pdf)</a> including the
+        standard API,
+      <li> provides dynamic (runtime) tracking and verification of security labels,
+      <li> is written in JavaScript, which enables flexibility in the deployment of JSFlow.
+    </ul>
+    </p>
+
+    <p>
+      The source code of JSflow is available from <a href="https://github.com/jsflow"
+        target="_blank">https://github.com/jsflow</a>. In addition, we
+      invite you to try the <a href="jsflow.html">console</a>, or tackle the <a
+        href="jsflow-challenge.html">challenge</a>.
+    </p>
+  </div>
+
+  <div class="container">
+
+    <h3> Publications </h3>
+
+    <p>
+      JSFlow rests on a solid theroetical foundation of dynamic information flow for JavaScript.
+    </p>
+
+    <p>
+    <div class="row">
+      <div class="span12">
+        <a href="http://www.cse.chalmers.se/research/group/security/publications/2018/side-effectful-libraries/forte-18.pdf"
+          target="_blank">
+          <strong>Information Flow Tracking for Side-effectful Libraries.</strong>
+        </a> <br>
+        Alexander Sjösten, Daniel Hedin, and Andrei Sabelfeld </br>
+        In <em>Proceedings of the International Conference on Formal Techniques for Distributed Objects, Components, and
+          Systems (FORTE)</em> Madrid, Spain, June 2018.
+      </div>
+    </div>
+    </p>
+
+    <p>
+    <div class="row">
+      <div class="span12">
+        <a href="http://www.cse.chalmers.se/research/group/security/publications/2017/libraries/post-17.pdf"
+          target="_blank">
+          <strong>A Principled Approach to Tracking Information Flow in the Presence of Libraries.</strong>
+        </a> <br>
+        Daniel Hedin, Alexander Sjösten, Frank Piessens, and Andrei Sabelfeld </br>
+        In <em>Proceedings of the International Conference on Principles of Security and Trust (POST)</em> Uppsala,
+        Sweden, April 2017.
+      </div>
+    </div>
+    </p>
+
+    <p>
+    <div class="row">
+      <div class="span12">
+        <a href="http://www.cse.chalmers.se/~andrei/lpar15.pdf" target="_blank">
+          <strong>Value Sensitivity and Observable Abstract Values for Information Flow Control.</strong>
+        </a> <br>
+        Luciano Bello, Daniel Hedin, and Andrei Sabelfeld </br>
+        In <em>Proceedings of the International Conferences on Logic for Programming, Artificial Intelligence and
+          Reasoning (LPAR)</em> Suva, Fiji, November 2015.
+      </div>
+    </div>
+    </p>
+
+    <p>
+    <div class="row">
+      <div class="span12">
+        <a href="http://www.cse.chalmers.se/~andrei/csf15-hybrid.pdf" target="_blank">
+          <strong>Value-sensitive Hybrid Information Flow Control for a JavaScript-like Language.</strong>
+        </a> <br>
+        Daniel Hedin, Luciano Bello, and Andrei Sabelfeld </br>
+        In <em>Proceedings of the IEEE Computer Security Foundations Symposium (CSF)</em> Verona, Italy, July 2015.
+      </div>
+    </div>
+    </p>
+
+    <p>
+    <div class="row">
+      <div class="span12">
+        <a href="http://www.cse.chalmers.se/~andrei/sac14.pdf" target="_blank">
+          <strong>JSFlow: Tracking Information Flow in JavaScript and its APIs.</strong>
+        </a> <br>
+        Daniel Hedin, Arnar Birgisson, Luciano Bello, and Andrei Sabelfeld </br>
+        In <em>Proceedings of the ACM Symposium on Applied Computing (SAC)</em>, Gyeongju, Korea, March 2014
+      </div>
+    </div>
+    </p>
+
+    <p>
+    <div class="row">
+      <div class="span12">
+        <a href="http://www.cse.chalmers.se/~andrei/essos14.pdf" target="_blank">
+          <strong>Architectures for Inlining Security Monitors in Web Application.</strong>
+        </a> <br>
+        Jonas Magazinius, Daniel Hedin, and Andrei Sabelfeld </br>
+        In <em>Proceedings of the International Symposium on Engineering Secure Software and Systems (ESSoS)</em>,
+        Munich, Germany, February 2014.
+      </div>
+    </div>
+    </p>
+
+    <p>
+    <div class="row">
+      <div class="span12">
+        <a href="http://www.cse.chalmers.se/~andrei/jsflow-csf12.pdf" target="_blank"><strong>Information-flow security
+            for a core of JavaScript.</strong> </a> <br>
+        Daniel Hedin, and Andrei Sabelfeld </br>
+        In <em>Proceedings of the IEEE Computer Security Foundations Symposium</em>, Harvard University, Cambridge MA,
+        June 25-27, 2012. IEEE Computer Society Press.
+      </div>
+    </div>
+    </p>
+
+    <p>
+    <div class="row">
+      <div class="span12">
+        <a href="http://www.cse.chalmers.se/~andrei/esorics12.pdf" target="_blank"> <strong>Boosting the Permissiveness
+            of Dynamic Information-Flow Tracking by Testing.</strong> </a> <br>
+        Arnar Birgisson, Daniel Hedin, and Andrei Sabelfeld </br>
+        In <em>Proceedings of the European Symposium on Research in Computer Security (ESORICS)</em>, Pisa, Italy,
+        September 2012, LNCS, Springer-Verlag.
+      </div>
+    </div>
+    </p>
+
+  </div>
+
+  <hr>
+
+  <div class="container">
+    <h3>Contributors</h3>
+    <p>
+      JSFlow is developed by Andrei Sabelfeld's research group at the
+      Department of Computer Science and Engineering, Chalmers University of
+      Technology, Gothenburg, Sweden and Daniel Hedin, Mälardalen University, Västerås, Sweden.
+    </p>
+
+    <ul>
+      <li>Daniel Hedin</a>
+      <li> <a href="http://www.cse.chalmers.se/~andrei/">Andrei Sabelfeld</a>
+    </ul>
+
+    <h3>Past contributors</h3>
+
+    <ul>
+      <li> <a href="http://www.cse.chalmers.se/~sjosten/">Alexander Sjösten</a>
+      <li> Luciano Bello
+      <li> Arnar Birgisson
+    </ul>
+    <h3>Acknowledgments</h3>
+    This work has been partly funded by the European Community under the
+    ProSecuToR, WebSand, and FlowShield projects and the Swedish Foundation for
+    Strategic Research (SSF) under the WebSec project.
+  </div>
+  <hr>
+
+
+  <script src="js/jquery.js"></script>
+  <script src="js/bootstrap.js"></script>
+
+</body>
+
+</html>

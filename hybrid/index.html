@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Hybrid value sensitive enforcement of secure information flow">
+
+  <title>Hybrid</title>
+
+  <link rel="stylesheet" href="css/pure-min.css">
+  
+  <!--[if lte IE 8]>
+    <link rel="stylesheet" href="css/grids-responsive-old-ie.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+    <link rel="stylesheet" href="css/grids-responsive.css">
+  <!--<![endif]-->
+  
+  <!--[if lte IE 8]>
+    <link rel="stylesheet" href="css/layouts/marketing-old-ie.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+    <link rel="stylesheet" href="css/layouts/marketing.css">
+  <!--<![endif]-->
+
+  <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+
+  <script src="js/codemirror.js"></script>
+  <link href="css/codemirror.css" rel="stylesheet">
+  <script src="js/mode/javascript/javascript.js"></script>
+  <script src="js/jquery-2.1.1.min.js"></script>
+  <link href="css/service.css" rel="stylesheet">
+
+
+</head>
+<body>
+
+<div class="splash-container">
+  <div class="splash">
+    <h1 class="splash-head">HYBRID</h1>
+      <p class="splash-subhead">
+        Value-Sensitive Hybrid Enforcement of Secure Information Flow.
+      </p>
+      <p class="splash-subhead">  <em>Scroll down to try it out!</em></p>
+      <p>
+        <a href="resources/csf2015-full.pdf" target="_blank" class="pure-button pure-button-primary">Get the Paper</a>
+        <a href="resources/hybrid.tgz" class="pure-button pure-button-primary">Get the Code</a>
+      </p>
+  </div>
+</div>
+
+<div class="content-wrapper">
+  <div class="content">
+    <h2 class="content-head is-center">Syntax</h2>
+
+    <div class="pure-g">
+      <div class="pure-u-1" style="border-top: 2px solid black;">
+        <pre>
+prog := stmt*
+stmt ::= <b>var</b> id <b>;</b> | <b>skip ;</b> | <b>return</b> expr <b>;</b> | <b>with (</b> expr <b>) { </b> stmt * <b>}</b> | <b>while (</b> e <b>) {</b> stmt* <b>}</b>
+  |  <b>if (</b> expr <b>) then {</b> stmt* <b>}</b> [  <b>else {</b> stmt* <b>}</b> ]?
+expr ::= id | <b>true</b> | <b>false</b> | string | number | <b>{</b> [ id <b>:</b> e [ <b>,</b> id <b>:</b> e ]* ]? <b>}</b> | <b>(</b> e <b>)</b> | e <b>[</b> e <b>]</b>
+  |  id <b>=</b> e | e <b>[</b> e <b>]</b> = e | e <b> : </b> label | e <b>(</b> [ e [ <b>,</b> e ]* ]? <b>)</b> | <b>function (</b> [ id [<b>,</b> id ]* ]? <b>)</b>
+label ::= <b>L</b> | <b>H</b>
+        </pre>
+      </div>
+    </div>
+  </div>
+
+  <div class="ribbon l-box-lrg pure-g">
+      
+    <div class="l-box pure-u-1 pure-u-md-1-2 pure-u-lg-3-5">
+      <h2 class="content-head content-head-ribbon">Experiment or click the examples</h2>
+    </div>
+
+    <div class="l-box pure-u-1 pure-u-md-1-2 pure-u-lg-4-5">
+      <p>
+        <textarea id="code" name="code"> </textarea>
+      </p>
+    </div>
+
+    <div class="l-box pure-u-1 pure-u-md-1-2 pure-u-lg-1-5">
+      <div id='examples' class="l-box"> </div>
+    </div>
+
+    <div id="message" class="l-box pure-u-1 pure-u-md-1-2 pure-u-lg-4-5"></div>
+
+    <div class="l-box pure-u-1 pure-u-md-1-2 pure-u-lg-1-5">
+      <button onclick="interpret()" class="pure-button pure-button-success">
+        <i class="fa fa-cog"></i>
+        Interpret!</button>
+    </div>
+  </div>
+
+  <div id="result" class="l-box-lrg pure-g" hidden="true"></div>
+
+  <div class="footer l-box is-center">
+    Hybrid information-flow control
+  </div>
+</div>
+
+ <script src="js/service.js"></script>
+
+</body>
+</html>

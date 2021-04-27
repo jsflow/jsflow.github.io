@@ -1,0 +1,154 @@
+.entity {
+    border: 1px solid black;
+}
+
+@keyframes blinker {  
+  50% { opacity: 0.0; }
+}
+
+.preResult {
+    border: None ;
+    font-size: 16px;
+    color: #495152;
+    line-height: 1.1;
+}
+
+pre {
+    border: 1px solid ;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    padding-left: 1em;
+    margin-top:0.5em;
+    margin-bottom:0.5em;
+    border-radius: 25px;
+}
+
+.tutorial {
+    line-height: 110%;
+    color: #495152;
+}
+
+.monitor {
+    text-align: center;
+    border-bottom: 1px solid #7F8C8D;
+    color: #495152;
+}
+
+div#result > div {
+    border-top: 1px solid #7F8C8D;
+}
+
+div#result .code {
+    font-size: 12px;
+    line-height: 14px;
+
+    font-family: monospace;
+}
+
+div#examples div{
+   cursor: pointer;
+}
+
+div#examples div:hover{
+   font-weight: bold;
+}
+
+
+.pointer {
+    color: black;
+    font-size: 10px;
+    top: -10px;
+    left: -2px;
+    position: relative;
+    height: 4px;
+}
+
+.recordValue{
+    border: 1px solid black;
+    border-bottom: 1px dotted ;
+    border-radius: 0px 5px 0px 0px;
+}
+
+.variableValue{
+    border: 1px solid black;
+    border-right: 0px;
+    border-radius: 0px 0px 0px 5px;
+    padding: 5px;
+}
+
+.variableType{
+    border: 1px solid black;
+    border-left: 1px dotted;
+    border-radius: 0px 5px 5px 0px;
+    padding: 5px;
+}
+
+.recordType{
+    border: 1px solid black;
+    border-top: 1px hidden;
+    border-radius: 0px 0px 5px 5px;
+    padding: 0px 5px;
+}
+
+.variableName, .variableValue, .variableType, .recordName, .recordValue, .recordType{
+    display: inline-block;
+    color: black;
+    background: white;
+}
+
+.variableName, .recordName, .recordValue, .recordType{
+    display: block;
+}
+
+.recordValue .labeledValue, .recordValue .labeledValue {
+    float: none;  
+}
+
+.labeledValue {
+    float: left;
+    margin: 10px;
+    border-radius: 0px 5px 5px 5px;
+    border: 1px solid black;
+    padding: 5px;
+    background: rgb(250, 250, 250);
+
+}
+
+.column {
+    float: left;
+    padding: 5px;
+    line-height: 20px;
+    background: none;
+}
+
+.part {
+    margin: 5px 0 5px 0;
+    padding: 2px 5px 2px 5px;
+    border-radius: 5px;
+    border: 1px solid black;
+    color: black;
+    background: rgb(250, 250, 250);
+}
+
+.secret {
+    background: rgb(202, 60, 60);
+}
+
+.scope {
+    background: rgb(176, 196, 222);
+}
+
+.secret.part {
+    color : white;
+}
+
+.top {
+    background: rgb(214, 51, 51);
+    color : white;
+}
+
+.error {
+  color: red;
+  animation: blinker 1s linear infinite;
+}
+

@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-36803261-4"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-36803261-4');
+    </script>
+
+    <title>JSFlow@SYNASC15</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <style>
+        body {
+            padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+        }
+    </style>
+    <link href="css/bootstrap-responsive.css" rel="stylesheet">
+
+
+</head>
+
+<body>
+
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="brand" href="http://jsflow.net/SYNASC-2015.html">Web app security using JSFlow - SYNASC 2105, Timisoara, September 22</a>
+        </div>
+    </div>
+</div>
+
+<div class="hero-unit">
+    <h2>Web app security using JSFlow</h2>
+
+    <p>
+        This page contains information to get you experimenting with enforcing confidentiality of user data using JSFlow.
+    </p>
+
+    <p>
+        If you want to play with JSFlow in the browser you can download an (unreleased) experimental version that runs
+        in Firefox. This version might be unstable, since it is under development. The official release of JSFlow which will soon include the Firefox extension, Tortoise. <i>If you find bugs we
+        appreciate if you report them to us!</i>
+
+    <div class="row" align="center">
+        <a class="btn btn-primary btn-large" href="SYNASC-2015/tortoise.xpi">Downlod Tortoise</a>
+    </div>
+
+
+    <p>Please note that due to fast changing internal security models of Firefox, Tortoise is not guaranteed to work in newer (or older)
+        versions of Firefox. We develop Tortoise on <a href="http://ftp.mozilla.org/pub/firefox/releases/30.0/">Firefox
+            30</a>.
+
+    <p> You might be interested in the <a href="SYNASC-2015/slides.pdf">slides</a> for the tutorial.
+
+        If you want to download the source of JSFlow or play around with the online interpreter the head over to <a
+                href="http://www.jsflow.net">jsflow.net</a>
+
+</div>
+
+<div class="container">
+    <h3> Setup for injection challenges </h3>
+
+    <p>
+        Before you start you need to download Node.js from <a
+            href="http://nodejs.org">nodejs.org</a>. The Hrafn app, the ad service
+        and the analytics service are built using the <a
+            href="http://expressjs.com/">Express</a> web framework. You also need
+        to download the <a href="SYNASC-2015/hrafn.zip">source code</a> for Hrafn and the
+        other services.
+
+    <p>
+        Once you are set you should see something like the following if you execute <code>node -v</code>
+<pre>$ node -v
+v0.12.2</pre>
+
+    <p> Just to make sure that you have npm as well
+<pre>$ npm -v
+2.7.4</pre>
+
+    <p> If you unzip hrafn.zip you should get three directories
+<pre>
+hrafn/server
+hrafn/adserv
+hrafn/analytics</pre>
+
+    <h4>hrafn/server</h4>
+    The server of the main app. Before it can be started the JavaScript libraries it uses must be downloaded and
+    installed. You do this with <code>npm install</code> which should result in something like this
+          
+<pre>$npm install
+passport-local@1.0.0 node_modules/passport-local
+└── passport-strategy@1.0.0
+
+passport@0.2.2 node_modules/passport
+├── pause@0.0.1
+└── passport-strategy@1.0.0
+...
+</pre>
+
+    <p>Don't worry - nothing will be installed on the system. It's all downloaded into the directory of the app itself.
+        Once the dependencies have been installed you start the server with <code>node index.js</code> which should give
+
+<pre>$ node index.js 
+Node app is running on port 5000
+</pre>
+
+    <p> indicating that the server is running and bound to port 5000. You can now browse to <a
+            href="http://localhost:5000">http://localhost:5000</a> and get Hrafn; of course since we are not running the
+        ad service or the analytics service those won't work.
+
+
+    <h4>hrafn/adserv</h4>
+    The ad service used by Hrafn. Again you need to run <code>npm install</code> before you can run <code>node
+    adserv.js</code> which should give
+<pre>$ node adserv.js 
+Node app is running on port 4999</pre>
+
+    <p> indicating that the server is running and bound to port 4999.
+
+    <h4>hrafn/analytics</h4>
+    The analytics service used by Hrafn. Again you need to run <code>npm install</code> before you can run <code>node
+    analytics.js</code> which should give
+<pre>$ node analytics.js 
+Node app is running on port 4888</pre>
+
+    <p> indicating that the server is running and bound to port 4888.
+
+    <h4>Putting it all together</h4>
+    Now, if you start all three servers in different console windows you should now be able to
+    play with a working version of <a href="http://localhost:5000">Hrafn</a>!
+
+</div>
+
+<hr>
+
+<div class="container">
+
+    <h3>The injection attacks </h3>
+
+    <p>
+        Your challenge is
+        to implement the two injection attacks we introduced during the
+        tutorial. I have also included an additional similar challenge based on control of the analytics server. For the two first challenges the solution can be found in the
+    <a href="SYNASC-2015/slides.pdf">slides</a>.
+</div>
+
+<div class="container">
+    <h4>The ad injection attack</h4>
+    This attack involves creating a new ad that injects code to steal the
+    credential and send it back to the attacker. There are two main
+    challenges. First, with the risk of giving too much information away - note
+    that scripts injected by modifying <em>innerHTML</em> creates a script
+    node but does not automatically execute it. Second, where will you send the
+    stolen credentials? You are not allowed to change the code of the ad server.
+
+    <p>
+        Files that you are allowed to modify
+    <ul>
+        <li>hrafn/adserv/ads/*</li>
+        <li>hrafn/adserv/public/ads/*</li>
+    </ul>
+
+    <p> Note that the adserver serves the ads in the <em>hrafn/adserv/ads/</em> directory
+        in a round robin fashion in the order provided by the OS. </p>
+    <p>
+        If you want, you can download the <a href="SYNASC-2015/malicious-ad.zip">solution</a>.
+
+    </p>
+
+</div>
+
+<hr>
+
+
+<div class="container">
+    <h4>The XSS attack</h4>
+
+    The XSS attack is the most powerful one, since it does not require control of any of the services. In fact, since
+    Hrafn allows you to post anonymously you don't even have to have an account. Find a way to craft a message that you
+    post on Hrafn and that steals the credentials of subsequent logins. Can you make a user automatically post his
+    credentials on Hrafn on login?
+    <p>
+        Files that you are allowed to modify
+    <ul>
+        <li>None</li>
+    </ul>
+
+    If you want, you can download the <a href="SYNASC-2015/cross-site-scripting.zip">solution</a>.
+
+</div>
+<hr>
+
+<div class="container">
+    <h4>The analytics service injection attack</h4>
+
+    <p>
+        The
+        simplest attack is the analytics service injection attack, since you are
+        in direct control of the code that the analytics server provides. Create an
+        attack that sends back the credentials to the analytics server.
+
+    <p>
+        Files that you are allowed to modify
+    <ul>
+        <li>hrafn/analytics/*</li>
+    </ul>
+    <p>
+        If you want, you can download the <a href="SYNASC-2015/cross-site-scripting.zip">solution</a>.
+
+    </p>
+</div>
+
+<hr>
+<div class="container">
+
+    <h3> Litterature </h3>
+    <h4> Work relating to JSFlow </h4>
+
+    <p>
+        If you are interested in JSFlow and its foundations those are the articles that provide the foundations. This is
+        the same list as on the JSFlow main page.
+    </p>
+
+    <p>
+
+    <div class="row">
+        <div class="span12">
+            <a href="http://www.cse.chalmers.se/~andrei/csf15-hybrid.pdf">
+                <strong>Value-sensitive Hybrid Information Flow Control for a JavaScript-like Language.</strong>
+            </a> <br>
+            Daniel Hedin, Luciano Bello, and Andrei Sabelfeld </br>
+            In <em>Proceedings of the IEEE Computer Security Foundations Symposium (CSF)</em> Verona, Italy, July
+            2015.</em>
+        </div>
+    </div>
+    </p>
+
+    <p>
+
+    <div class="row">
+        <div class="span12">
+            <a href="http://www.cse.chalmers.se/~andrei/sac14.pdf">
+                <strong>JSFlow: Tracking Information Flow in JavaScript and its APIs.</strong>
+            </a> <br>
+            Daniel Hedin, Arnar Birgisson, Luciano Bello, and Andrei Sabelfeld </br>
+            In <em>Proceedings of the ACM Symposium on Applied Computing (SAC)</em>, Gyeongju, Korea, March 2014
+        </div>
+    </div>
+    </p>
+
+    <p>
+
+    <div class="row">
+        <div class="span12">
+            <a href="http://www.cse.chalmers.se/~andrei/essos14.pdf">
+                <strong>Architectures for Inlining Security Monitors in Web Application.</strong>
+            </a> <br>
+            Jonas Magazinius, Daniel Hedin, and Andrei Sabelfeld </br>
+            In <em>Proceedings of the International Symposium on Engineering Secure Software and Systems (ESSoS)</em>,
+            Munich, Germany, February 2014.
+        </div>
+    </div>
+    </p>
+
+    <p>
+
+    <div class="row">
+        <div class="span12">
+            <a href="http://www.cse.chalmers.se/~andrei/jsflow-csf12.pdf"><strong>Information-flow security for a core
+                of JavaScript.</strong> </a> <br>
+            Daniel Hedin, and Andrei Sabelfeld </br>
+            In <em>Proceedings of the IEEE Computer Security Foundations Symposium</em>, Harvard University, Cambridge
+            MA, June 25-27, 2012. IEEE Computer Society Press.
+        </div>
+    </div>
+    </p>
+
+    <p>
+
+    <div class="row">
+        <div class="span12">
+            <a href="http://www.cse.chalmers.se/~andrei/jsflow-csf12.pdf"> <strong>Boosting the Permissiveness of
+                Dynamic Information-Flow Tracking by Testing.</strong> </a> <br>
+            Arnar Birgisson, Daniel Hedin, and Andrei Sabelfeld </br>
+            In <em>Proceedings of the European Symposium on Research in Computer Security (ESORICS)</em>, Pisa, Italy,
+            September 2012, LNCS, Springer-Verlag.
+        </div>
+    </div>
+    </p>
+
+    <h4>Selected works relating to web security and information flow control</h4>
+
+
+    <p><a href="http://www.owasp.org">Open Web Application Security Project (OWASP)</a> is a non-profit organisation
+        that contains a lot of interesting information on vulnerabilities and protection mechanism. They also create the
+        OWASP Top 10 list that lists the most common vulnerabilities.
+
+
+    <p>For information about Cross Site Scripting (XSS) head over to <a href="http://www.cgisecurity.com/xss-faq.html">http://www.cgisecurity.com/xss-faq.html</a>.
+        OWASP also has a <a href="https://www.owasp.org/index.php/XSS_(Cross_Site_Scripting)_Prevention_Cheat_Sheet">cheat
+            sheet</a> on XSS prevention that illustrates well why the current techniques are complex.
+
+
+    <p>
+        On web sandboxes the article by Politz, Guha, Krishnamurthi gives good background with multiple pointers to the
+        sandboxes themselves. It's also a very good article that describes an interesting and impressive endevour to
+        verify the correctness of AdSafe. You can also visit their project page for more information, <a
+            href="http://www.jswebtools.org/adsafety/">http://www.jswebtools.org/adsafety/</a>.
+
+    <p>
+
+    <div class="row">
+        <div class="span12">
+            <a href="http://cs.brown.edu/~sk/Publications/Papers/Published/pgk-type-verif-sandbox-journal/"> <strong>Type-Based
+                Verification of Web Sandboxes</strong></a><br>
+            Joe Gibbs Politz, Arjun Guha, Shriram Krishnamurthi </br>
+        </div>
+    </div>
+    </p>
+
+    <p>On the topic of the dangers of third party scrip inclusion I recommend the article by Nikiforakis et al.
+
+    <p>
+
+    <div class="row">
+        <div class="span12">
+            <a href="https://seclab.cs.ucsb.edu/media/uploads/papers/jsinclusions.pdf"> <strong>You Are What You
+                Include:
+                Large-scale Evaluation of Remote JavaScript Inclusions</strong></a><br>
+            Nick Nikiforakis, et al.</br>
+        </div>
+    </div>
+    </p>
+    <p>For information on information-flow control I recommend the following article written for the Marktoberdorf
+        summer school 2011 as a starting point. It contains references to many of the standard works on both static and
+        dynamic information-flow control.
+
+    <p>
+
+    <div class="row">
+        <div class="span12">
+            <a href="http://www.cse.chalmers.se/~andrei/mod11.pdf"> <strong>A Perspective on Information-Flow
+                Control</strong></a><br>
+            Daniel Hedin and Andrei Sabelfeld</br>
+        </div>
+    </div>
+    </p>
+
+    <p>For information about dynamic taint tracking I recommend the following technical report by Benjamin Livshits
+
+    <p>
+
+    <div class="row">
+        <div class="span12">
+            <a href="http://research.microsoft.com/pubs/176596/tr.pdf"> <strong>Dynamic Taint Tracking in Managed
+                Runtimes</strong></a><br>
+            Benjamin Livshits</br>
+        </div>
+    </div>
+    </p>
+
+    <p>For information on the fundamentals of dynamic information-flow control I recommend the following two articles
+
+    <p>
+
+    <div class="row">
+        <div class="span12">
+            <a href="http://www.cse.chalmers.se/~andrei/psi09.pdf"> <strong>From dynamic to static and back: Riding the
+                roller coaster of information-flow control research</strong></a><br>
+            Alejandro Russo, Andrei Sabelfeld</br>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="span12">
+            <a href="http://www.cse.chalmers.se/~andrei/csf10.pdf"> <strong>Dynamic vs. Static Flow-Sensitive Security
+                Analysis</strong></a><br>
+            Alejandro Russo, Andrei Sabelfeld</br>
+        </div>
+    </div>
+
+    </p>
+    <p>For information on how to construct policies in the presence of mutual distrust I recommend, e.g.,
+
+    <p>
+
+    <div class="row">
+        <div class="span12">
+            <a href="http://www.cse.chalmers.se/~andrei/asiaccs10.pdf"> <strong>A Decentralized Model for Information
+                Flow Control</strong></a><br>
+            Andrew C. Myers, Barbara Liskov</br>
+        </div>
+    </div>
+    </p>
+    <p>For decentralized policies in the web setting see, e.g.,
+
+    <p>
+
+    <div class="row">
+        <div class="span12">
+            <a href="http://www.cs.cornell.edu/andru/papers/iflow-sosp97/paper.html"> <strong>A Lattice-based Approach
+                to Mashup Security</strong></a><br>
+            Jonas Magaszinius, Aslan Askarov, Andrei Sabelfeld</br>
+        </div>
+    </div>
+    </p>
+
+
+
+</div>
+
+
+<script src="js/jquery.js"></script>
+<script src="js/bootstrap.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Value-Sensitivity for Information-Flow Control">
+
+  <title>Value-Sensitivity</title>
+
+  <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
+  
+  <!--[if lte IE 8]>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure//grids-responsive-old-ie.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/grids-responsive.css">
+  <!--<![endif]-->
+  
+  <!--[if lte IE 8]>
+    <link rel="stylesheet" href="css/layouts/marketing-old-ie.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+    <link rel="stylesheet" href="css/layouts/marketing.css">
+  <!--<![endif]-->
+
+  <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+
+  <script src="js/codemirror.js"></script>
+  <link href="css/codemirror.css" rel="stylesheet">
+  <script src="js/mode/python/python.js"></script>
+  <script src="js/jquery-2.1.1.min.js"></script>
+  <link href="css/service.css" rel="stylesheet">
+
+
+</head>
+<body>
+
+<div class="splash-container">
+  <div class="splash">
+    <h1 class="splash-head">Value-Sensitivity</h1>
+      <p class="splash-subhead">
+	Value-Sensitivity for Information-Flow Control
+      </p>
+      <p class="splash-subhead">  <em>Scroll down to try it out!</em></p>
+      <p>
+        <a href="fullversion.pdf" target="_blank" class="pure-button pure-button-primary">Get the Paper</a>
+        <a href="valsens.tar.gz" class="pure-button pure-button-primary">Get the Code</a>
+      </p>
+  </div>
+</div>
+
+<div class="content-wrapper">
+  <div class="content">
+    <h2 class="content-head is-center">Mini Tutorial</h2>
+    <div class="pure-g">
+      <div class="pure-u-1-2 tutorial" style="border-right: 1px solid ; padding: 1em;">
+The language handle numbers, strings, booleans, and dictionary-like records.
+<pre>
+n = 1               # Number
+s = 'string'        # String
+b = true            # Boolean
+r = {1:'a', 'b': 2} # Record
+</pre>
+The syntax is similar to Python. Indent with one or more spaces for blocks.
+<pre>
+if True :
+   b = 1
+else:
+   b = 2
+</pre>
+      </div>
+      <div class="pure-u-1-2 tutorial" style="padding: 1em;">
+To label something with a security label use <code>^</code>(hat). The possible security label are <code>top</code> and <code>bot</code>, where <code>top</code> &#8847; <code>bot</code>.
+<pre style="border: 1px solid ;">
+f="secret string"^top
+</pre>
+Or just upgrade a variable with:
+<pre style="border: 1px solid ;">
+f="will be secret"
+f^top
+</pre>
+The operator <code>^</code> applied on records means that the structure of the record is relabeled, not the value itself.
+For upgrading the exitence label of all the records properties, use the operator <code>&<code>(ampersand).
+The operator <code>^</code> does not affect the type label. For labeling the value and its type, use the operator <code>|</code>(pipe).
+      </div>
+    </div>
+  </div>
+
+  <div class="ribbon l-box-lrg pure-g">
+      
+    <div class="l-box pure-u-1 pure-u-md-1-2 pure-u-lg-3-5">
+      <h2 class="content-head content-head-ribbon">Experiment or click the examples</h2>
+    </div>
+
+    <div class="l-box pure-u-1 pure-u-md-1-2 pure-u-lg-4-5">
+      <p>
+        <textarea id="code" name="code"> </textarea>
+      </p>
+    </div>
+
+    <div class="l-box pure-u-1 pure-u-md-1-2 pure-u-lg-1-5">
+      <div id='examples' class="l-box"> </div>
+    </div>
+
+    <div id="message" class="l-box pure-u-1 pure-u-md-1-2 pure-u-lg-4-5"></div>
+
+    <div class="l-box pure-u-1 pure-u-md-1-2 pure-u-lg-1-5">
+      <p>
+      <button onclick='interpret("VS")' class="pure-button pure-button-success">
+        <i class="fa fa-cog interpretVS"></i>
+        Run with VS</button>
+      <p>
+      </p>
+      <button onclick='interpret("NSU")' class="pure-button pure-button-success">
+        <i class="fa fa-cog interpretNSU"></i>
+        Run without VS</button>
+      </p>
+    </div>
+  </div>
+
+  <div id="result" class="l-box-lrg pure-g" hidden="true"></div>
+
+  <div class="footer l-box is-center">
+    Value-Sensitivity for Information-Flow Control - Chalmers CSE 2015
+  </div>
+</div>
+
+ <script src="js/service.js"></script>
+
+</body>
+</html>
