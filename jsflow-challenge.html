@@ -1,14 +1,10 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Required meta tags -->
     <meta charset="utf-8">
-
-    <title>jsflow challenge</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-HF4HSC64G3"></script>
@@ -23,15 +19,13 @@
         gtag('config', 'G-HF4HSC64G3');
     </script>
 
-    <!-- Le styles -->
-    <link href="css/bootstrap.css" rel="stylesheet">
-    <style>
-        body {
-            padding-top: 60px;
-            /* 60px to make the container go all the way to the bottom of the topbar */
-        }
-    </style>
-    <link href="css/bootstrap-responsive.css" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
+    <title>JSFlow</title>
+
+    <link href="css/jsflow.css" rel="stylesheet">
+
     <script src="js/codemirror.js"></script>
     <link href="css/codemirror.css" rel="stylesheet">
     <script src="js/mode/javascript/javascript.js"></script>
@@ -39,208 +33,217 @@
         .CodeMirror {
             border-top: 1px solid black;
             border-bottom: 1px solid black;
+            height: 500px
         }
     </style>
-
 
 </head>
 
 <body>
 
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="navbar-inner">
-            <div class="container">
-                <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-                <a class="brand" href="http://jsflow.net">jsflow</a>
-                <div class="nav-collapse collapse">
-                    <ul class="nav">
-                        <li><a href="index.html">main</a></li>
-                        <li><a href="tutorial.html">tutorial</a></li>
-                        <li><a href="jsflow.html">console</a></li>
-                        <li class="active"><a href="jsflow-challenge.html">challenge</a></li>
-                    </ul>
-                </div>
-                <!--/.nav-collapse -->
-            </div>
-        </div>
-    </div>
+    <div class="container py-3">
+        <header>
+            <div class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
+                <a href="index.html" class="d-flex align-items-center text-dark text-decoration-none">
+                    <span class="fs-4">JSFlow</span>
+                </a>
 
-    <div class="container">
-        <div class="row">
-            <div class="span12">
+                <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
+
+                    <a class="me-3 py-2 text-dark text-decoration-none" href="https://github.com/jsflow/jsflow" target="_blank">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-github" viewBox="0 0 16 16">
+                            <path
+                                d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z" />
+                        </svg>
+                    </a>
+
+                    <a class="me-3 py-2 text-dark text-decoration-none" href="publications.html">Publications</a>
+                    <a class="me-3 py-2 text-dark text-decoration-none" href="jsflow-console.html">Console</a>
+                    <a class="py-2 text-dark text-decoration-none" href="jsflow-challenge.html">Challenge</a>
+
+                </nav>
+            </div>
+
+
+        </header>
+
+
+
+
+        <main>
+
+
+            <div class="row">
                 <p>
                     Whenever the <strong>Try!</strong> button is pressed the function
-                    <strong>f</strong> is called with a secret random number as the first parameter <strong>h</strong>. The challenge is to try to bypass the dynamic information flow enforcement, and return the content of
+                    <strong>f</strong> is called with a secret random number as the first parameter
+                    <strong>h</strong>. The challenge is to try to bypass the dynamic information flow enforcement, and return the content of
                     <strong>h</strong> with an empty (public) label.
                 </p>
                 <p>
                     Note that timing leaks are not in scope of this challenge.
                 </p>
-                <p>
-                    <textarea id="code" name="code">
+
+                <textarea id="code" name="code">
 function f(h) {
-  var l;
-
-  return l;
-}
-</textarea>
-                </p>
+    var l;
+    
+    return l;
+}</textarea>
             </div>
-        </div>
 
-        <div id="alert"></div>
+            <div id="alert" class="pt-3">
 
-        <div class="row">
-            <div class="span12">
+            </div>
+
+            <div class="row mx-auto">
+
                 <button type="button" class="btn btn-primary" onclick="execute()">Try!</button>
-            </div>
-        </div>
 
-        <div class="row">
-            <div class="span12">
+            </div>
+
+            <div class="row">
+
                 <p>
-                    <pre id="console" class="pre-scrollable prettyprint linenums" style="height:350px"></pre>
+                    <pre id="console" class="pre-scrollable border" style="height:200px"></pre>
                 </p>
             </div>
-        </div>
-    </div>
 
-    <script>
-        var codeTextArea = document.getElementById("code");
-        var editor = CodeMirror.fromTextArea(
-            codeTextArea, {
-                lineNumbers: true,
-                matchBrackets: true,
-            }
-        );
-
-        var c = document.getElementById("console");
-
-        jsflow = {
-            console: {}
-        };
-
-        jsflow.console.log = function log() {
-            var str = "";
-            for (var i = 0, len = arguments.length; i < len; i++) {
-                str = str + String(arguments[i]);
-            }
-            str = str.replaceAll("<", "&lt;");
-            str = str.replaceAll(">", "&gt;");
-            c.innerHTML = c.innerHTML + str + "\n";
-            c.scrollTop = c.scrollHeight;
-        }
-
-        let exception = false;
-
-        function execute() {
-            if (exception) {
-                alert("JSFlow cannot restart after an internal error or a security violation. You must reload the page to get a fresh JSFlow instance!");
-                return;
-            }
-
-            let rnd = Math.round(Math.random() * Number.MAX_VALUE);
-            jsflow.monitor.Execute(editor.getDoc().getValue());
-            let res = undefined;
-            try {
-                res = jsflow.monitor.Execute("var h = lbl(" + String(rnd) + "); f(h);");
-            } catch (err) {
-
-                if (err && err.type) {
-                    // jsflow errors extend Error, hence we must break out their handling
-                    if (err.type === "FatalError") {
-                        report("error", editor.getDoc().getValue() + "\n" + err.stack);
-                        show_alert("error", "<strong>It seems something went wrong!</strong> JSFlow caused an exception, and you must reload to be able to execute again. ");
-                        jsflow.console.log(err.message);
-                        exception = true;
-                        return;
+            <script>
+                var codeTextArea = document.getElementById("code");
+                var editor = CodeMirror.fromTextArea(
+                    codeTextArea, {
+                        lineNumbers: true,
+                        matchBrackets: true,
                     }
-
-                    if (err.type == "SecurityError") {
-                        show_alert("error", "<strong>Security Violation!</strong> Execution was forcefully stopped, and you must reload to be able to execute again.");
-                        jsflow.console.log(err.message);
-                        exception = true;
-                        return;
-                    }
-                }
-
-                // report Errors, i.e., exceptions caused by jsflow
-                if (err instanceof Error) {
-                    report("error", editor.getDoc().getValue() + "\n" + err.stack);
-                    show_alert("error", "<strong>It seems something went wrong!</strong> JSFlow caused an exception, and you must reload to be able to execute again.");
-                    jsflow.console.log(err.message);
-                    exception = true;
-                    return;
-                }
-
-                // remaining exceptions are from the code
-                show_alert('success', '<strong>Phew!</strong> Not quite there yet. Your code caused an uncaught exception.');
-                jsflow.console.log(`Uncaught ${err}`);
-            }
-
-            function show_alert(type, msg) {
-                $('#alert').html(
-                    '<div class="alert alert-' + type + ' fade in">' +
-                    '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
-                    msg +
-                    '</div>'
                 );
-            }
 
-            if (res !== undefined) {
-                jsflow.console.log(res.value);
+                var c = document.getElementById("console");
 
-                if (res.value === rnd) {
-                    if (res.label.equals(jsflow.monitor.labelBot)) {
-                        show_alert('error', '<strong>Oh snap!</strong> You found a way to fool JSFlow!');
-                        report("attack", editor.getDoc().getValue());
-                    } else {
-                        show_alert('success', '<strong>Phew!</strong> Not quite there yet. Value is equal, but label is not public.');
+                jsflow = {
+                    console: {}
+                };
+
+                jsflow.console.log = function log() {
+                    var str = "";
+                    for (var i = 0, len = arguments.length; i < len; i++) {
+                        str = str + String(arguments[i]);
                     }
-                } else {
-                    show_alert('success', '<strong>Phew!</strong> Not quite there yet. Returned value is not equal to ' + rnd);
+                    str = str.replaceAll("<", "&lt;");
+                    str = str.replaceAll(">", "&gt;");
+                    c.innerHTML = c.innerHTML + str + "\n";
+                    c.scrollTop = c.scrollHeight;
                 }
-            }
-        }
 
-        function report(status, code) {
-            const headers = new Headers()
-            headers.append("Content-Type", "application/json")
-            console.log(document.URL);
+                let exception = false;
 
-            const body = {
-                "user_agent": navigator.userAgent,
-                "url": document.URL,
-                "code": code,
-                "status": status
-            }
+                function execute() {
+                    if (exception) {
+                        alert("JSFlow cannot restart after an internal error or a security violation. You must reload the page to get a fresh JSFlow instance!");
+                        return;
+                    }
 
-            const options = {
-                method: "POST",
-                headers,
-                mode: "cors",
-                body: JSON.stringify(body),
-            }
+                    let rnd = 1; //Math.round(Math.random() * Number.MAX_VALUE);
+                    jsflow.monitor.Execute(editor.getDoc().getValue());
+                    let res = undefined;
+                    try {
+                        res = jsflow.monitor.Execute("var h = lbl(" + String(rnd) + "); f(h);");
+                    } catch (err) {
 
-            fetch("https://enm08sczo8nqzdo.m.pipedream.net", options)
-        }
-    </script>
+                        if (err && err.type) {
+                            // jsflow errors extend Error, hence we must break out their handling
+                            if (err.type === "FatalError") {
+                                report("error", editor.getDoc().getValue() + "\n" + err.stack);
+                                show_alert("danger", "<strong>It seems something went wrong!</strong> JSFlow caused an exception, and you must reload to be able to execute again. ");
+                                jsflow.console.log(err.message);
+                                exception = true;
+                                return;
+                            }
 
-    <script src="js/jquery.js"></script>
-    <script src="js/bootstrap.js"></script>
-    <script src="js/jsflow-bundle.js"></script>
-    <script>
-        jsflow.monitor.log = jsflow.console.log;
-        jsflow.monitor.print = jsflow.console.log;
-        jsflow.monitor.error = jsflow.console.log;
-        jsflow.monitor.warn = jsflow.console.log;
-        jsflow.console.log(`JSFlow v${jsflow.version} console.`);
-    </script>
+                            if (err.type == "SecurityError") {
+                                show_alert("danger", "<strong>Security Violation!</strong> Execution was forcefully stopped, and you must reload to be able to execute again.");
+                                jsflow.console.log(err.message);
+                                exception = true;
+                                return;
+                            }
+                        }
 
+                        // report Errors, i.e., exceptions caused by jsflow
+                        if (err instanceof Error) {
+                            report("error", editor.getDoc().getValue() + "\n" + err.stack);
+                            show_alert("danger", "<strong>It seems something went wrong!</strong> JSFlow caused an exception, and you must reload to be able to execute again.");
+                            jsflow.console.log(err.message);
+                            exception = true;
+                            return;
+                        }
+
+                        // remaining exceptions are from the code
+                        show_alert('success', '<strong>Phew!</strong> Not quite there yet. Your code caused an uncaught exception.');
+                        jsflow.console.log(`Uncaught ${err}`);
+                    }
+
+                    function show_alert(type, msg) {
+                        $('#alert').html(
+                            `<div class="alert alert-${type} alert-dismissible fade show" role="alert">
+                                 ${msg}
+                                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                             </div>
+                            `
+                        );
+                    }
+
+                    if (res !== undefined) {
+                        jsflow.console.log(res.value);
+
+                        if (res.value === rnd) {
+                            if (res.label.equals(jsflow.monitor.labelBot)) {
+                                show_alert('danger', '<strong>Oh snap!</strong> You found a way to fool JSFlow!');
+                                report("attack", editor.getDoc().getValue());
+                            } else {
+                                show_alert('success', '<strong>Phew!</strong> Not quite there yet. Value is equal, but label is not public.');
+                            }
+                        } else {
+                            show_alert('success', '<strong>Phew!</strong> Not quite there yet. Returned value is not equal to ' + rnd);
+                        }
+                    }
+                }
+
+                function report(status, code) {
+                    const headers = new Headers()
+                    headers.append("Content-Type", "application/json")
+                    console.log(document.URL);
+
+                    const body = {
+                        "user_agent": navigator.userAgent,
+                        "url": document.URL,
+                        "code": code,
+                        "status": status
+                    }
+
+                    const options = {
+                        method: "POST",
+                        headers,
+                        mode: "cors",
+                        body: JSON.stringify(body),
+                    }
+
+                    fetch("https://enm08sczo8nqzdo.m.pipedream.net", options)
+                }
+            </script>
+
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+
+            <script src="js/jsflow-bundle.js"></script>
+            <script>
+                jsflow.monitor.log = jsflow.console.log;
+                jsflow.monitor.print = jsflow.console.log;
+                jsflow.monitor.error = jsflow.console.log;
+                jsflow.monitor.warn = jsflow.console.log;
+                jsflow.console.log(`JSFlow v${jsflow.version} console.`);
+            </script>
+        </main>
+    </div>
 </body>
 
 </html>
