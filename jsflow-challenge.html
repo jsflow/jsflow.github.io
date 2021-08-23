@@ -143,7 +143,7 @@ function f(h) {
                         return;
                     }
 
-                    let rnd = 1; //Math.round(Math.random() * Number.MAX_VALUE);
+                    let rnd = Math.round(Math.random() * Number.MAX_VALUE);
                     jsflow.monitor.Execute(editor.getDoc().getValue());
                     let res = undefined;
                     try {
